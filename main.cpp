@@ -9,13 +9,6 @@
 #include <iostream>
 #include "enumifier.h"
 
-void TestEnumifierSupportMode()
-{
-    std::cout<< " ===================== Started TestUnscopedEnumToString ===================== \n";
-    auto support_mode = enumifier::get_supported_mode();
-    std::cout<< "\n ===================== Ended TestUnscopedEnumToString ===================== \n\n\n\n";
-}
-
 void TestUnscopedEnumToString()
 {
     std::cout<< " ===================== Started TestUnscopedEnumToString ===================== \n";
@@ -27,7 +20,7 @@ void TestUnscopedEnumToString()
         case enumifier::Enumifier_Support_Mode::function_mode:
         {
 #if ENUMIFIER_LIBRARY_COMPILER_SUPPORT
-             std::cout<< enumifier::enum_name<Color, Color::Yellow>()<< '\n';
+            std::cout<< enumifier::enum_name<Color, Color::Yellow>()<< '\n';
 #endif
         }
             break;
@@ -92,8 +85,8 @@ void TestScopedEnumToInteger()
     std::cout<< "\n ===================== Ended TestScopedEnumToInteger ===================== \n\n\n\n";
 }
 
-int main(int argc, const char * argv[]) {
-
+int main() {
+    
     TestUnscopedEnumToString();
     TestScopedEnumToString();
     TestUnscopedEnumToInteger();
