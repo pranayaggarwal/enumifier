@@ -63,7 +63,7 @@ enum class Elements { EARTH = 2, WATER = 4, FIRE = 5 };
 
 * Enum value to string : function
   ```cpp
-  Elements element = Elements::WATER;
+  const Elements element = Elements::WATER; // const is important!!
   auto element_name = enumifier::enum_name(Elements, element);
   // element_name -> "WATER"
   ```
