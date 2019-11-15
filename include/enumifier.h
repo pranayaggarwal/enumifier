@@ -104,7 +104,7 @@ namespace enumifier {
         std::string namestring()
         {
 #if __cpp_nontype_template_parameter_auto
-            static_assert(type_traits::is_enum_v<E>, "magic_enum::detail::n requires enum type.");
+        static_assert(std::is_enum<E>::value, "enumifier::enum_name() function requires enum types");
 #endif // __cpp_nontype_template_parameter_auto
             
 #if defined(__clang__) || defined(__GNUC__) && __GNUC__ >= 9
@@ -141,7 +141,7 @@ namespace enumifier {
     template <typename T, auto V>
     std::string enum_name() noexcept
     {
-        static_assert(type_traits::check_enum_v<decltype(V),T>, "enumifier::enum_name() function requires enum types");
+        static_assert(std::is_enum<T>::value, "enumifier::enum_name() function requires enum types");
         return impl::namestring<T, V>();
     }
 
