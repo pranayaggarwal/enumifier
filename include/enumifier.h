@@ -48,7 +48,7 @@
 #endif
 
 namespace enumifier {
-    
+
     namespace utils
     {
         std::string beautify(std::string name) noexcept;
@@ -69,14 +69,7 @@ namespace enumifier {
         macro_mode = 1   // No compiler support, use the Macro to get your string
     };
     
-    constexpr Enumifier_Support_Mode get_supported_mode()
-    {
-#if ENUMIFIER_LIBRARY_COMPILER_SUPPORT
-        return Enumifier_Support_Mode::function_mode;
-#else
-        return Enumifier_Support_Mode::macro_mode;
-#endif // Compiler support tag
-    }
+    constexpr bool is_supported_enumifier = ENUMIFIER_LIBRARY_COMPILER_SUPPORT;
 
     constexpr const char* empty_string = "";
     namespace type_traits
@@ -97,31 +90,16 @@ namespace enumifier {
         
         template <class T>
         using underlying_type_t = typename std::underlying_type<T>::type;
-        
-#if __cpp_nontype_template_parameter_auto
-        
-        // Required in C++17 code flow
-        
-        template< class T, class U >
-        constexpr bool is_same_v = std::is_same<T, U>::value;
-        
-        template<typename T>
-        constexpr bool is_enum_v = std::is_enum<T>::value;
-        
-        template <typename E, typename D>
-        constexpr bool check_enum_v = type_traits::is_same_v<type_traits::remove_cvref_t<E>, D> && type_traits::is_enum_v<D>;
-        
-        template <typename T>
-        using enable_if_enum_t = type_traits::enable_if_t<type_traits::is_enum_v<type_traits::remove_cvref_t<T>>, type_traits::remove_cvref_t<T>>;
-        
-#endif // #if __cpp_nontype_template_parameter_auto
-    }
     
+        template <class T>
+        using underlying_type_t = typename std::underlying_type<T>::type;
+    }
+
+
 #if ENUMIFIER_LIBRARY_COMPILER_SUPPORT
 
     namespace impl
     {
-        
         template<typename E, E V>
         std::string namestring()
         {
@@ -173,20 +151,21 @@ namespace enumifier {
     std::string enum_name() noexcept
     {
         static_assert(std::is_enum<T>::value, "enumifier::enum_name() function requires enum types");
-        return impl::namestring<T, V>();
+        const T X = V;
+        return impl::namestring<T, X>();
     }
+
 #endif
     
-#else // not ENUMIFIER_LIBRARY_COMPILER_SUPPORT
-    
-    #define ENUMIFIER_MACRO_PRINT(x) (#x)
-    #define ENUMIFIER_ENUM_NAME(VAR1, VAR2) ({\
-    std::string enum_name = ENUMIFIER_MACRO_PRINT(VAR1);\
-    enum_name = enumifier::utils::beautify(enum_name);\
-    VAR2 = enum_name; \
-    })
-    
 #endif // #if ENUMIFIER_LIBRARY_COMPILER_SUPPORT
+
+    #define ENUMIFIER_MACRO_PRINT(x) (#x)
+    
+    #define ENUMIFIER_ENUM_NAME(VAR1, VAR2) ({\
+        std::string enum_name = ENUMIFIER_MACRO_PRINT(VAR1);\
+        enum_name = enumifier::utils::beautify(enum_name);\
+        VAR2 = enum_name; \
+    })
     
     // Returns integer value from enum value.
     template <typename E>
