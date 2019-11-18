@@ -19,7 +19,7 @@ Enumifier is a single header library to facilitate scoped / unscoped enum to str
 [![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/xuWvGrYlYVcNUEV2)
 
 ## Compiler Support
-Though all compilers are suported, GCC/clang and MSVC are fully supported and rest of the compilers are supported via a constrained Macro mode.
+Though all compilers are supported, GCC/clang and MSVC are fully supported and rest of the compilers are supported via a constrained Macro mode.
 
 ## Features
 * Minimum supported version C++11
@@ -27,7 +27,7 @@ Though all compilers are suported, GCC/clang and MSVC are fully supported and re
 * Dependency free
 * Compile time only (for fully supported compilers)
 * Scoped / Unscoped Enum to string conversion
-* Enum to interger 
+* Enum to integer 
 
 ## APIs and usage
 
