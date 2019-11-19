@@ -16,10 +16,10 @@ Enumifier is a single header library to facilitate scoped / unscoped enum to str
 [![License](https://img.shields.io/github/license/pranayaggarwal/enumifier)](LICENSE)
 ![Size](https://img.shields.io/github/repo-size/pranayaggarwal/enumifier)
 [![Build status](https://img.shields.io/appveyor/ci/pranayaggarwal/enumifier)](https://ci.appveyor.com/project/pranayaggarwal/enumifier/branch/master)
-[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/m3VQFJqIEzpycGwn)
+[![Try online](https://img.shields.io/badge/try-online-blue.svg)](https://wandbox.org/permlink/xuWvGrYlYVcNUEV2)
 
 ## Compiler Support
-Though all compilers are suported, GCC/clang and MSVC are fully supported and rest of the compilers are supported via a constrained Macro mode.
+Though all compilers are supported, GCC/clang and MSVC are fully supported and rest of the compilers are supported via a constrained Macro mode.
 
 ## Features
 * Minimum supported version C++11
@@ -27,29 +27,30 @@ Though all compilers are suported, GCC/clang and MSVC are fully supported and re
 * Dependency free
 * Compile time only (for fully supported compilers)
 * Scoped / Unscoped Enum to string conversion
-* Enum to interger 
+* Enum to integer 
 
 ## APIs and usage
 
-* ## enumifier::get_supported_mode
-This will return either of the two enum values depending upon if your compiler is supported.
+* ## enumifier::is_supported_enumifier
+This is constexpr boolean indicating if your compiler is supported.
+
 ```text
-Enumifier_Support_Mode::function_mode - You can use enum_name(..) API to get the string from enum.
+If supported, you can use enumifier API enum_name<...>() to get the string from enum.
 ```
 or 
 
 ```text
-Enumifier_Support_Mode::macro_mode - You would need to use underlying macro ENUMIFIER_ENUM_NAME, which takes care of both scoped and unscoped enums.
+If not supported, you can use Macro ENUMIFIER_ENUM_NAME to get the string from enum.
 ```
 
 * ## enumifier::enum_name
-For Enumifier_Support_Mode::function_mode, to convert enum (scoped or unscoped) value into string.
-  
-* ## ENUMIFIER_ENUM_NAME (Macro)
-For Enumifier_Support_Mode::function_mode, to convert enum (scoped or unscoped) value into string.
+To convert enum (scoped or unscoped) value into string.
 
 * ## enumifier::enum_integral_value
 To convert enum values into underlying integeral value.
+
+* ## ENUMIFIER_ENUM_NAME (Macro)
+Non-smart, (works for rvalues only) To convert enum (scoped or unscoped) value into string.
 
 ## Examples (main.cpp)
 
@@ -62,7 +63,7 @@ enum class Elements { EARTH = 2, WATER = 4, FIRE = 5 };
 
 * Enum value to string : function
   ```cpp
-  Elements element = Elements::WATER;
+  const Elements element = Elements::WATER; // const is important!!
   auto element_name = enumifier::enum_name(Elements, element);
   // element_name -> "WATER"
   ```
