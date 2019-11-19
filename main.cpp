@@ -3,7 +3,6 @@
 //  enumifier
 //
 //  Created by Pranay Kumar on 29/09/19.
-//  Copyright © 2019 AdobeInc. All rights reserved.
 //
 
 #include <iostream>
