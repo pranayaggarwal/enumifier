@@ -63,15 +63,8 @@ namespace enumifier {
 
 namespace enumifier {
     
-    enum class Enumifier_Support_Mode
-    {
-        function_mode = 0, // just the enum and enum value is required
-        macro_mode = 1   // No compiler support, use the Macro to get your string
-    };
-    
     constexpr bool is_supported_enumifier = ENUMIFIER_LIBRARY_COMPILER_SUPPORT;
 
-    constexpr const char* empty_string = "";
     namespace type_traits
     {
         
@@ -161,11 +154,11 @@ namespace enumifier {
 
     #define ENUMIFIER_MACRO_PRINT(x) (#x)
     
-    #define ENUMIFIER_ENUM_NAME(VAR1, VAR2) ({\
+    #define ENUMIFIER_ENUM_NAME(VAR1, VAR2) {\
         std::string enum_name = ENUMIFIER_MACRO_PRINT(VAR1);\
         enum_name = enumifier::utils::beautify(enum_name);\
         VAR2 = enum_name; \
-    })
+    }
     
     // Returns integer value from enum value.
     template <typename E>
